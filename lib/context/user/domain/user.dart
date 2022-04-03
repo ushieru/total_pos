@@ -8,12 +8,6 @@ class User {
   final Role role;
   final String accountId;
 
-  User._(this.id, this.name, this.email, this.role, this.accountId);
-
-  User(String name, String email, Role role, String accountId)
-      : this._(const Uuid().v4(), name, email, role, accountId);
-
-  User.fromJson(dynamic json)
-      : this._(json['id'], json['name'], json['email'], json['role'],
-            json['accountId']);
+  User(this.name, this.email, this.role, this.accountId, {String? id})
+      : id = id ?? const Uuid().v4();
 }

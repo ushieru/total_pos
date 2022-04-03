@@ -1,12 +1,10 @@
 import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
 
-final account =
-    Account.fromJson({'id': 'admin', 'user': 'admin', 'password': 'admin'});
-
 class AccountInMemory extends AccountRepository {
   static final Map<String, Account> _accounts = <String, Account>{
-    account.id: account
+    'admin': Account('admin', 'admin', id: 'admin'),
+    'user': Account('user', 'user', id: 'user'),
   };
 
   @override

@@ -7,6 +7,7 @@ import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
 import 'package:total_pos/context/account/infrastructure/persistence/in_memory/account_in_memory.dart';
 import 'package:total_pos/context/user/application/get_user_by_account.dart';
+import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
 import 'package:total_pos/context/user/infrastructure/persistence/in_memory/user_in_memory.dart';
 
@@ -22,8 +23,8 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       Account account = await GetAccountByUserAndPassword(_accountRepository)
           .run(user, password);
-      await GetUserByAccount(_userRepository).run(account);
-      emit(LoginSuccessful());
+      final _user = await GetUserByAccount(_userRepository).run(account);
+      emit(LoginSuccessful(_user));
     } catch (e) {
       stderr.writeln(e.toString());
     }

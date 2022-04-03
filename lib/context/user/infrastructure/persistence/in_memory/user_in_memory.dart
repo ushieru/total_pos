@@ -3,10 +3,11 @@ import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
 
-final user = User('admin', 'admin', Role.admin, 'admin');
-
 class UserInMemory extends UserRepository {
-  static final Map<String, User> _users = <String, User>{user.id: user};
+  static final Map<String, User> _users = <String, User>{
+    'admin': User('admin', 'admin', Role.admin, 'admin', id: 'admin'),
+    'user': User('user', 'user', Role.user, 'user', id: 'user'),
+  };
 
   @override
   Future<List<User>> getAll() async {
