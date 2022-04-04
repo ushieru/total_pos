@@ -2,10 +2,7 @@ import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
 
 class AccountInMemory extends AccountRepository {
-  static final Map<String, Account> _accounts = <String, Account>{
-    'admin': Account('admin', 'admin', id: 'admin'),
-    'user': Account('user', 'user', id: 'user'),
-  };
+  static final Map<String, Account> _accounts = <String, Account>{};
 
   @override
   Future<List<Account>> getAll() async {
