@@ -1,5 +1,4 @@
 import 'package:total_pos/context/account/domain/account.dart';
-import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
 
