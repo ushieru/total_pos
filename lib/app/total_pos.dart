@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
+import 'package:total_pos/app/pages/cashier/cashier.dart';
+import 'package:total_pos/app/pages/loading/loading.dart';
 import 'package:total_pos/app/pages/login/login.dart';
 
 class TotalPos extends StatelessWidget {
@@ -11,10 +13,13 @@ class TotalPos extends StatelessWidget {
       title: 'Total Pos',
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
+        Loading.routeName: (context) => const Loading(),
         Login.routeName: (context) => const Login(),
         Admin.routeName: (context) => const Admin(),
+        Cashier.routeName: (context) => const Cashier(),
       },
-      initialRoute: Login.routeName,
+      initialRoute: Loading.routeName,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
