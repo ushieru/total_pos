@@ -4,8 +4,11 @@ part of 'cashier_cubit.dart';
 abstract class CashierState {
   final List<Category> categories;
   final List<Product> products;
+  final Ticket ticket;
   final Category? currentCategory;
-  const CashierState(this.categories, this.products, {this.currentCategory});
+  CashierState(this.categories, this.products,
+      {this.currentCategory, Ticket? ticket})
+      : ticket = ticket ?? Ticket.empty();
 }
 
 class CashierInitial extends CashierState {
@@ -13,7 +16,8 @@ class CashierInitial extends CashierState {
 }
 
 class CashierGlobal extends CashierState {
-  const CashierGlobal(List<Category> categories, List<Product> products,
-      {Category? currentCategory})
-      : super(categories, products, currentCategory: currentCategory);
+  CashierGlobal(List<Category> categories, List<Product> products,
+      {Category? currentCategory, Ticket? ticket})
+      : super(categories, products,
+            currentCategory: currentCategory, ticket: ticket);
 }

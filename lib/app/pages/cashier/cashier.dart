@@ -4,6 +4,7 @@ import 'package:total_pos/app/pages/cashier/cubit/cashier_cubit.dart';
 import 'package:total_pos/app/pages/login/login.dart';
 import 'package:total_pos/context/category/domain/category.dart';
 import 'package:total_pos/context/product/domain/product.dart';
+import 'package:total_pos/context/ticket/domain/ticket_product.dart';
 
 class Cashier extends StatelessWidget {
   static const String routeName = '/cashier';
@@ -71,12 +72,20 @@ class _CashierView extends StatelessWidget {
                             children: [
                               for (Product product in state.products)
                                 ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      product.name,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ))
+                                    onPressed: () => context
+                                        .read<CashierCubit>()
+                                        .addTicketProduct(product),
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(product.name,
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                          Text('\$ ${product.price.toString()}',
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                        ]))
                             ]);
                       },
                     ))
@@ -99,8 +108,53 @@ class _CashierView extends StatelessWidget {
             Expanded(
                 child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Column(children: const []))),
-            const Text('Total:'),
+                    child: BlocBuilder<CashierCubit, CashierState>(
+                        builder: (context, state) {
+                      return ListView(children: [
+                        for (TicketProduct ticketProduct
+                            in state.ticket.ticketProducts)
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(ticketProduct.product.name),
+                                      ElevatedButton(
+                                          onPressed: () => context
+                                              .read<CashierCubit>()
+                                              .removeTicketProduct(
+                                                  ticketProduct),
+                                          child: Icon(
+                                              ticketProduct.quantity == 1
+                                                  ? Icons.delete
+                                                  : Icons.remove))
+                                    ]),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                          'x ${ticketProduct.quantity.toString()}'),
+                                      Text((ticketProduct.quantity *
+                                              ticketProduct.product.price)
+                                          .toString())
+                                    ]),
+                                const SizedBox(height: 10)
+                              ])
+                      ]);
+                    }))),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const Text('Total',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              BlocBuilder<CashierCubit, CashierState>(
+                builder: (context, state) {
+                  return Text(state.ticket.total.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold));
+                },
+              )
+            ]),
             const Text('Payment Method',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 5),
