@@ -1,14 +1,8 @@
 import 'package:total_pos/context/category/domain/category.dart';
 import 'package:total_pos/context/category/domain/category_repository.dart';
 
-final category1 = Category('Desayunos');
-final category2 = Category('Bebidas');
-
 class CategoryInMemory extends CategoryRepository {
-  static final Map<String, Category> _categories = <String, Category>{
-    category1.id: category1,
-    category2.id: category2,
-  };
+  static final Map<String, Category> _categories = <String, Category>{};
 
   @override
   Future<List<Category>> getAll() async {

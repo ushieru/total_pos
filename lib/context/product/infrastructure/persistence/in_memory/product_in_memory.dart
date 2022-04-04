@@ -1,3 +1,4 @@
+import 'package:total_pos/context/category/domain/category.dart';
 import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
 
@@ -40,5 +41,12 @@ class ProductInMemory extends ProductRepository {
     }
     _products[object.id] = object;
     return object;
+  }
+
+  @override
+  Future<List<Product>> getProductsByCategory(Category category) async {
+    return _products.values
+        .where((product) => product.categoryId == category.id)
+        .toList();
   }
 }
