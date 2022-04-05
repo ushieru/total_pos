@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
 import 'package:total_pos/app/pages/cashier/cashier.dart';
 import 'package:total_pos/app/pages/login/cubit/login_cubit.dart';
@@ -67,7 +68,7 @@ class _LoginView extends StatelessWidget {
                           ])))),
           Expanded(
               child: Container(
-                  color: Colors.purple,
+                  color: GlobalConfig.principalColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [],

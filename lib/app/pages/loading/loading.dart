@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/loading/cubit/loading_cubit.dart';
 import 'package:total_pos/app/pages/login/login.dart';
 
@@ -23,7 +24,7 @@ class _LoadingView extends StatelessWidget {
       body: Container(
           width: double.maxFinite,
           height: double.maxFinite,
-          color: Colors.purple,
+          color: GlobalConfig.principalColor,
           child: BlocBuilder<LoadingCubit, LoadingState>(
             buildWhen: (previous, current) {
               if (current is LoadingSuccessful) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
 import 'package:total_pos/app/pages/cashier/cashier.dart';
 import 'package:total_pos/app/pages/loading/loading.dart';
@@ -11,7 +12,7 @@ class TotalPos extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Total Pos',
-      theme: ThemeData(primarySwatch: Colors.purple),
+      theme: ThemeData(primarySwatch: GlobalConfig.principalColor),
       routes: {
         Loading.routeName: (context) => const Loading(),
         Login.routeName: (context) => const Login(),

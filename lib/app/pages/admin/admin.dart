@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/cubit/admin_cubit.dart';
 import 'package:total_pos/app/pages/admin/screens/categories/category_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/products/product_admin_screen.dart';
@@ -54,7 +55,9 @@ class _AdminView extends StatelessWidget {
                         children: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            color: isSelected ? Colors.purple : Colors.black,
+                            color: isSelected
+                                ? GlobalConfig.principalColor
+                                : Colors.black,
                             onPressed: () => context
                                 .read<AdminCubit>()
                                 .setSideBarItemAndContainer(
@@ -65,8 +68,9 @@ class _AdminView extends StatelessWidget {
                             label,
                             style: TextStyle(
                                 fontSize: 10,
-                                color:
-                                    isSelected ? Colors.purple : Colors.black),
+                                color: isSelected
+                                    ? GlobalConfig.principalColor
+                                    : Colors.black),
                           ),
                           const SizedBox(height: 10),
                         ],

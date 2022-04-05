@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/cashier/cubit/cashier_cubit.dart';
 import 'package:total_pos/app/pages/cashier/widgets/sidebar_ticket_product.dart';
 import 'package:total_pos/app/pages/login/login.dart';
@@ -60,7 +61,7 @@ class SidebarTicket extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         primary: state.ticket.total == 0
                             ? Colors.grey
-                            : Colors.purple),
+                            : GlobalConfig.principalColor),
                     onPressed: () => context.read<CashierCubit>().saveTicket(),
                     child: const Icon(Icons.attach_money_rounded));
               }))
