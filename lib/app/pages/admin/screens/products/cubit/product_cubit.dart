@@ -7,7 +7,9 @@ import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
 import 'package:total_pos/context/product/infrastructure/persistence/in_memory/product_in_memory.dart';
 import 'package:total_pos/context/shared/application/create.dart';
+import 'package:total_pos/context/shared/application/delete.dart';
 import 'package:total_pos/context/shared/application/get_all.dart';
+import 'package:total_pos/context/shared/application/update.dart';
 
 part 'product_state.dart';
 
@@ -35,11 +37,29 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> getCategories() async {
     final categories = await GetAll(_categoryRepository).run();
-    emit(ProductGlobal(state.products, categories));
+    emit(ProductGlobal(state.products, categories,
+        currentCategory: state.currentCategory,
+        currentProduct: state.currentProduct));
   }
 
-  Future<void> setCurrentCategory(Category category) async {
+  Future<void> setCurrentCategory(Category? category) async {
     emit(ProductGlobal(state.products, state.categories,
-        currentCategory: category));
+        currentCategory: category, currentProduct: state.currentProduct));
+  }
+
+  Future<Product?> setCurrentProduct(Product? product) async {
+    emit(ProductGlobal(state.products, state.categories,
+        currentCategory: state.currentCategory, currentProduct: product));
+    return product;
+  }
+
+  Future<void> updateProduct(Product product) async {
+    await Update(_productRepository).run(product);
+    getProducts();
+  }
+
+  Future<void> deleteProduct(Product product) async {
+    await Delete(_productRepository).run(product);
+    getProducts();
   }
 }

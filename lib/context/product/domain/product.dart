@@ -7,6 +7,7 @@ class Product {
   final double price;
   final String categoryId;
 
-  Product(this.name, this.descripcion, this.price, this.categoryId)
-      : id = const Uuid().v4();
+  Product(this.name, this.descripcion, this.price, this.categoryId,
+      {String? id})
+      : id = id ?? const Uuid().v4();
 }

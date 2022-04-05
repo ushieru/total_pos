@@ -5,16 +5,17 @@ abstract class ProductState {
   final List<Product> products;
   final List<Category> categories;
   final Category? currentCategory;
-
-  const ProductState(this.products, this.categories, this.currentCategory);
+  final Product? currentProduct;
+  const ProductState(this.products, this.categories, this.currentCategory,
+      this.currentProduct);
 }
 
 class ProductInitial extends ProductState {
-  ProductInitial() : super([], [], null);
+  ProductInitial() : super([], [], null, null);
 }
 
 class ProductGlobal extends ProductState {
   const ProductGlobal(List<Product> products, List<Category> categories,
-      {Category? currentCategory})
-      : super(products, categories, currentCategory);
+      {Category? currentCategory, Product? currentProduct})
+      : super(products, categories, currentCategory, currentProduct);
 }
