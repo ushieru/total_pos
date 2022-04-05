@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:total_pos/app/pages/admin/cubit/admin_cubit.dart';
 import 'package:total_pos/app/pages/admin/screens/categories/category_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/products/product_admin_screen.dart';
+import 'package:total_pos/app/pages/admin/screens/tickets/ticket_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/users/user_admin_screen.dart';
 import 'package:total_pos/app/pages/login/login.dart';
 
@@ -97,6 +98,12 @@ class _AdminView extends StatelessWidget {
                           'Usuarios',
                           Icons.account_circle_rounded,
                           const UserAdminScreen(),
+                        ),
+                        _buildIconButton(
+                          4,
+                          'Tickets',
+                          Icons.receipt,
+                          const TicketAdminScreen(),
                         ),
                       ],
                     );
