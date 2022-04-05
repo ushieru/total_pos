@@ -129,7 +129,7 @@ class _AdminView extends StatelessWidget {
               )),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.all(50),
+              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
               height: double.maxFinite,
               child: BlocBuilder<AdminCubit, AdminState>(
                 builder: (context, state) {
