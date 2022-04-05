@@ -7,6 +7,7 @@ import 'package:total_pos/context/product/applications/get_products_by_category.
 import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
 import 'package:total_pos/context/product/infrastructure/persistence/in_memory/product_in_memory.dart';
+import 'package:total_pos/context/shared/application/create.dart';
 import 'package:total_pos/context/shared/application/get_all.dart';
 import 'package:total_pos/context/ticket/application/add_ticket_product.dart';
 import 'package:total_pos/context/ticket/application/remove_ticket_product.dart';
@@ -23,10 +24,10 @@ class CashierCubit extends Cubit<CashierState> {
   final TicketRepository _ticketRepository = TicketInMemory();
 
   CashierCubit() : super(CashierInitial()) {
-    loadCategories();
+    initCashier();
   }
 
-  Future<void> loadCategories() async {
+  Future<void> initCashier() async {
     final categories = await GetAll(_categoryRepository).run();
     emit(CashierGlobal(categories, const []));
     if (categories.isNotEmpty) {
@@ -41,6 +42,12 @@ class CashierCubit extends Cubit<CashierState> {
         await GetProductsByCategory(_productRepository).run(category);
     emit(CashierGlobal(state.categories, products,
         currentCategory: category, ticket: state.ticket));
+  }
+
+  Future<void> saveTicket() async {
+    if (state.ticket.total == 0) return;
+    await Create(_ticketRepository).run(state.ticket);
+    initCashier();
   }
 
   Future<void> addTicketProduct(Product ticketProduct) async {
