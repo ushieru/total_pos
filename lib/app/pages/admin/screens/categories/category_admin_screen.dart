@@ -17,6 +17,8 @@ class CategoryAdminScreen extends StatelessWidget {
 }
 
 class _CategoryAdminScreenView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
+  
   final TextEditingController _categoryNameController =
       TextEditingController(text: '');
 
@@ -74,7 +76,7 @@ class _CategoryAdminScreenView extends StatelessWidget {
       const SizedBox(height: 30),
       Expanded(child:
           BlocBuilder<CategoryCubit, CategoryState>(builder: (context, state) {
-        return ListView(children: [
+        return ListView(controller: _scrollController, children: [
           Row(children: const [
             Expanded(
                 child: Text('Nombre',
@@ -85,31 +87,28 @@ class _CategoryAdminScreenView extends StatelessWidget {
           ]),
           const SizedBox(height: 10),
           for (Category category in state.categories)
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(children: [
-                  Expanded(
-                      child: Text(category.name,
-                          style: const TextStyle(fontSize: 15))),
-                  ElevatedButton(
-                      onPressed: () => context
-                          .read<CategoryCubit>()
-                          .setCurrentCategory(category)
-                          .then((category) => _categoryNameController.text =
-                              category?.name ?? ''),
-                      child: const Icon(Icons.edit)),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                      onPressed: () => context
-                          .read<CategoryCubit>()
-                          .deleteCategory(category)
-                          .then((_) => _categoryNameController.text = ''),
-                      child: const Icon(Icons.delete))
-                ]),
-                const Divider()
-              ],
-            )
+            Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(children: [
+                Expanded(
+                    child: Text(category.name,
+                        style: const TextStyle(fontSize: 15))),
+                ElevatedButton(
+                    onPressed: () => context
+                        .read<CategoryCubit>()
+                        .setCurrentCategory(category)
+                        .then((category) => _categoryNameController.text =
+                            category?.name ?? ''),
+                    child: const Icon(Icons.edit)),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () => context
+                        .read<CategoryCubit>()
+                        .deleteCategory(category)
+                        .then((_) => _categoryNameController.text = ''),
+                    child: const Icon(Icons.delete))
+              ]),
+              const Divider()
+            ])
         ]);
       })),
     ]);
