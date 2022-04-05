@@ -97,13 +97,14 @@ class _CategoryAdminScreenView extends StatelessWidget {
                           .read<CategoryCubit>()
                           .setCurrentCategory(category)
                           .then((category) => _categoryNameController.text =
-                              category?.name ?? 'Not found'),
+                              category?.name ?? ''),
                       child: const Icon(Icons.edit)),
                   const SizedBox(width: 10),
                   ElevatedButton(
                       onPressed: () => context
                           .read<CategoryCubit>()
-                          .deleteCategory(category),
+                          .deleteCategory(category)
+                          .then((_) => _categoryNameController.text = ''),
                       child: const Icon(Icons.delete))
                 ]),
                 const Divider()
