@@ -9,9 +9,9 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 
 ## Soporte
 
-* [x] Soporte para Windows
-* [x] Soporte para Ubuntu
-* [ ] Soporte para Apple
+* [X] Soporte para Windows
+* [X] Soporte para Ubuntu
+* [ ] Soporte para MacOS
 
 ## TODO List
 
