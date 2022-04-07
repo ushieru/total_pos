@@ -1,30 +1,26 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
-import 'package:total_pos/context/account/infrastructure/persistence/in_memory/account_in_memory.dart';
 import 'package:total_pos/context/category/domain/category.dart';
 import 'package:total_pos/context/category/domain/category_repository.dart';
-import 'package:total_pos/context/category/infrastructure/persistence/in_memory/category_in_memory.dart';
 import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
-import 'package:total_pos/context/product/infrastructure/persistence/in_memory/product_in_memory.dart';
-import 'package:total_pos/context/shared/application/create.dart';
 import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
-import 'package:total_pos/context/user/infrastructure/persistence/in_memory/user_in_memory.dart';
 
 part 'loading_state.dart';
 
 class LoadingCubit extends Cubit<LoadingState> {
   static bool _isLoaded = false;
-  final AccountRepository _accountRepository = AccountInMemory();
-  final UserRepository _userRepository = UserInMemory();
-  final CategoryRepository _categoryRepository = CategoryInMemory();
-  final ProductRepository _productRepository = ProductInMemory();
+  final _accountRepository = GetIt.instance<AccountRepository>();
+  final _userRepository = GetIt.instance<UserRepository>();
+  final _categoryRepository = GetIt.instance<CategoryRepository>();
+  final _productRepository = GetIt.instance<ProductRepository>();
 
   LoadingCubit() : super(LoadingInitial()) {
     init();
@@ -49,17 +45,17 @@ class LoadingCubit extends Cubit<LoadingState> {
       Product(
           'Jugo de naranja', 'Jugo natural de naranjas', 15, drinksCategory.id),
     ];
-    await Create(_accountRepository).run(adminAccount);
-    await Create(_accountRepository).run(userAccount);
+    await _accountRepository.create(adminAccount);
+    await _accountRepository.create(userAccount);
     stderr.writeln('<LoadingCubit> Accounts created successful');
-    await Create(_userRepository).run(admin);
-    await Create(_userRepository).run(user);
+    await _userRepository.create(admin);
+    await _userRepository.create(user);
     stderr.writeln('<LoadingCubit> Users created successful');
-    await Create(_categoryRepository).run(breakfastCategory);
-    await Create(_categoryRepository).run(drinksCategory);
+    await _categoryRepository.create(breakfastCategory);
+    await _categoryRepository.create(drinksCategory);
     stderr.writeln('<LoadingCubit> Categories created successful');
-    await Future.forEach<Product>(products,
-        (product) async => await Create(_productRepository).run(product));
+    await Future.forEach<Product>(
+        products, (product) async => await _productRepository.create(product));
     stderr.writeln('<LoadingCubit> Products created successful');
     _isLoaded = true;
     return emit(LoadingSuccessful());
