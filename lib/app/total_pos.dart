@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:total_pos/app/config/global_config.dart';
+import 'package:total_pos/app/lib/setup_locator.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
 import 'package:total_pos/app/pages/cashier/cashier.dart';
 import 'package:total_pos/app/pages/loading/loading.dart';
@@ -10,6 +11,7 @@ class TotalPos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setupLocator();
     return MaterialApp(
       title: 'Total Pos',
       theme: ThemeData(primarySwatch: GlobalConfig.principalColor),
