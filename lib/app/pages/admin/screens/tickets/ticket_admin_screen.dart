@@ -26,6 +26,7 @@ class _TicketView extends StatelessWidget {
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Tickets',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
+        const SizedBox(height: 10),
         Expanded(child:
             BlocBuilder<TicketCubit, TicketState>(builder: (context, state) {
           return ListView(controller: _scrollController, children: [
