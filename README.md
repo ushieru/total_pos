@@ -14,7 +14,8 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 | Admin        | admin     | admin      |
 | User         | user      | user       |
 
-[WEB Preview](https://total-3r4jyl7qo-ushieru.vercel.app/)
+
+<a href="https://total-3r4jyl7qo-ushieru.vercel.app/" target="_blank">WEB PREVIEW</a>
 
 ## Soporte
 
