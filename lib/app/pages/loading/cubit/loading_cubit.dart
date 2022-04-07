@@ -15,14 +15,12 @@ import 'package:total_pos/context/user/domain/user_repository.dart';
 
 part 'loading_state.dart';
 
-final getIt = GetIt.instance;
-
 class LoadingCubit extends Cubit<LoadingState> {
   static bool _isLoaded = false;
-  final _accountRepository = getIt<AccountRepository>();
-  final _userRepository = getIt<UserRepository>();
-  final _categoryRepository = getIt<CategoryRepository>();
-  final _productRepository = getIt<ProductRepository>();
+  final _accountRepository = GetIt.instance<AccountRepository>();
+  final _userRepository = GetIt.instance<UserRepository>();
+  final _categoryRepository = GetIt.instance<CategoryRepository>();
+  final _productRepository = GetIt.instance<ProductRepository>();
 
   LoadingCubit() : super(LoadingInitial()) {
     init();
