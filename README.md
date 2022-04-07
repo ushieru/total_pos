@@ -15,7 +15,7 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 | User         | user      | user       |
 
 
-<a href="https://total-3r4jyl7qo-ushieru.vercel.app/" target="_blank">WEB PREVIEW</a>
+[WEB PREVIEW](https://total-3r4jyl7qo-ushieru.vercel.app/)
 
 ## Soporte
 
