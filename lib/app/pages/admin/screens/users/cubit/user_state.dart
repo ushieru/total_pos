@@ -4,7 +4,10 @@ part of 'user_cubit.dart';
 abstract class UserState {
   final List<User> users;
   final Role? currentRole;
-  const UserState(this.users, {this.currentRole});
+  final User? currentUser;
+  final Account? currentAccount;
+  const UserState(this.users,
+      {this.currentRole, this.currentUser, this.currentAccount});
 }
 
 class UserInitial extends UserState {
@@ -12,6 +15,10 @@ class UserInitial extends UserState {
 }
 
 class UserGlobal extends UserState {
-  const UserGlobal(List<User> users, {Role? currentRole})
-      : super(users, currentRole: currentRole);
+  const UserGlobal(List<User> users,
+      {Role? currentRole, User? currentUser, Account? currentAccount})
+      : super(users,
+            currentRole: currentRole,
+            currentUser: currentUser,
+            currentAccount: currentAccount);
 }

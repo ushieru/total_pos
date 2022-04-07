@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/screens/users/cubit/user_cubit.dart';
 import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
@@ -17,6 +18,8 @@ class UserAdminScreen extends StatelessWidget {
 }
 
 class _UserAdminScreenView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
+
   final TextEditingController _userNameController =
       TextEditingController(text: '');
   final TextEditingController _userEmailController =
@@ -33,7 +36,8 @@ class _UserAdminScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Text('Usuarios'),
+      const Text('Usuarios',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
       Form(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -86,28 +90,128 @@ class _UserAdminScreenView extends StatelessWidget {
                       label: Text('Confirmar Contraseña')))),
         ]),
         const SizedBox(height: 10),
-        ElevatedButton(
-            onPressed: () => context
-                .read<UserCubit>()
-                .createUser(
-                    _userNameController.text,
-                    _userEmailController.text,
-                    _userUserController.text,
-                    _userPasswordController.text,
-                    _userConfirmPasswordController.text)
-                .then((_) => {
-                      _userNameController.text = '',
-                      _userEmailController.text = '',
-                      _userUserController.text = '',
-                      _userPasswordController.text = '',
-                      _userConfirmPasswordController.text = '',
-                    }),
-            child: const Text('Nuevo Usuario'))
+        BlocBuilder<UserCubit, UserState>(buildWhen: (previous, current) {
+          if (current.currentUser != null && current.currentAccount != null) {
+            _userNameController.text = current.currentUser!.name;
+            _userEmailController.text = current.currentUser!.email;
+            _userUserController.text = current.currentAccount!.user;
+            _userPasswordController.text = '';
+            _userConfirmPasswordController.text = '';
+          }
+          return true;
+        }, builder: (context, state) {
+          return Row(children: [
+            if (state.currentUser != null)
+              Row(children: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        elevation: 0,
+                        side: BorderSide(
+                            color: GlobalConfig.principalColor, width: 2)),
+                    onPressed: () async {
+                      final cubit = context.read<UserCubit>();
+                      cubit.setCurrentRole(null);
+                      cubit.setCurrentUser(null);
+                      _userNameController.text = '';
+                      _userEmailController.text = '';
+                      _userUserController.text = '';
+                      _userPasswordController.text = '';
+                      _userConfirmPasswordController.text = '';
+                    },
+                    child: Text('Cancelar',
+                        style: TextStyle(color: GlobalConfig.principalColor))),
+                const SizedBox(width: 10)
+              ]),
+            ElevatedButton(
+                onPressed: () {
+                  final cubit = context.read<UserCubit>();
+                  if (state.currentUser == null) {
+                    cubit.createUser(
+                        _userNameController.text,
+                        _userEmailController.text,
+                        _userUserController.text,
+                        _userPasswordController.text,
+                        _userConfirmPasswordController.text);
+                  }
+                  cubit.updateUser(
+                      _userNameController.text,
+                      _userEmailController.text,
+                      _userUserController.text,
+                      _userPasswordController.text,
+                      _userConfirmPasswordController.text);
+
+                  _userNameController.text = '';
+                  _userEmailController.text = '';
+                  _userUserController.text = '';
+                  _userPasswordController.text = '';
+                  _userConfirmPasswordController.text = '';
+                },
+                child: Text(state.currentUser == null
+                    ? 'Nuevo Usuario'
+                    : 'Editar Usuario')),
+          ]);
+        })
       ])),
+      const SizedBox(height: 20),
       Expanded(
           child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-        return ListView(children: [
-          for (User product in state.users) ListTile(title: Text(product.name))
+        return ListView(controller: _scrollController, children: [
+          Row(children: const [
+            Expanded(
+                flex: 2,
+                child: Text('Nombre',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+            Expanded(
+                flex: 2,
+                child: Text('Email',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+            Expanded(
+                flex: 2,
+                child: Text('Role',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+            Expanded(
+                child: Text('Opciones',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+          ]),
+          const SizedBox(height: 10),
+          for (User user in state.users)
+            Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(children: [
+                Expanded(
+                    flex: 2,
+                    child:
+                        Text(user.name, style: const TextStyle(fontSize: 15))),
+                Expanded(
+                    flex: 2,
+                    child:
+                        Text(user.email, style: const TextStyle(fontSize: 15))),
+                Expanded(
+                    flex: 2,
+                    child: Text(user.role.toString().split('.')[1],
+                        style: const TextStyle(
+                            fontSize: 15, overflow: TextOverflow.ellipsis))),
+                Expanded(
+                    child: Row(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<UserCubit>().setCurrentRole(user.role);
+                        context.read<UserCubit>().setCurrentUser(user);
+                      },
+                      child: const Icon(Icons.edit)),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                      onPressed: () =>
+                          context.read<UserCubit>().deleteUser(user),
+                      child: const Icon(Icons.delete))
+                ]))
+              ]),
+              const Divider()
+            ])
         ]);
       })),
     ]);
