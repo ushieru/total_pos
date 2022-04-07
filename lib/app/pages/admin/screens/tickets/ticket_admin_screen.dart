@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:total_pos/app/pages/admin/screens/tickets/cubit/ticket_cubit.dart';
 import 'package:total_pos/app/pages/admin/screens/tickets/widgets/ticket_details_modal.dart';
 import 'package:total_pos/context/ticket/domain/ticket.dart';
-import 'package:total_pos/context/ticket/domain/ticket_product.dart';
 
 class TicketAdminScreen extends StatelessWidget {
   const TicketAdminScreen({Key? key}) : super(key: key);

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -51,19 +49,14 @@ class LoadingCubit extends Cubit<LoadingState> {
     ];
     await _accountRepository.create(adminAccount);
     await _accountRepository.create(userAccount);
-    stderr.writeln('<LoadingCubit> Accounts created successful');
     await _userRepository.create(admin);
     await _userRepository.create(user);
-    stderr.writeln('<LoadingCubit> Users created successful');
     await _categoryRepository.create(breakfastCategory);
     await _categoryRepository.create(drinksCategory);
-    stderr.writeln('<LoadingCubit> Categories created successful');
     await Future.forEach<Product>(
         products, (product) async => await _productRepository.create(product));
-    stderr.writeln('<LoadingCubit> Products created successful');
     await _ticketRepository.create(
         Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
-    stderr.writeln('<LoadingCubit> Ticket created successful');
     _isLoaded = true;
     return emit(LoadingSuccessful());
   }

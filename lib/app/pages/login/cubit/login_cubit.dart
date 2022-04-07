@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
@@ -22,8 +20,6 @@ class LoginCubit extends Cubit<LoginState> {
           await _accountRepository.getAccountByUserAndPassword(user, password);
       final _user = await _userRepository.getUserByAccount(account);
       emit(LoginSuccessful(_user));
-    } catch (e) {
-      stderr.writeln(e.toString());
-    }
+    } catch (e) {}
   }
 }
