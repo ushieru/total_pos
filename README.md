@@ -11,6 +11,7 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 
 * [X] Soporte para Windows
 * [X] Soporte para Ubuntu
+* [ ] Soporte para WSL2
 * [ ] Soporte para MacOS
 
 ## TODO List
