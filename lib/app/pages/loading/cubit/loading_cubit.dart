@@ -9,6 +9,9 @@ import 'package:total_pos/context/category/domain/category.dart';
 import 'package:total_pos/context/category/domain/category_repository.dart';
 import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
+import 'package:total_pos/context/ticket/domain/ticket.dart';
+import 'package:total_pos/context/ticket/domain/ticket_product.dart';
+import 'package:total_pos/context/ticket/domain/ticket_repository.dart';
 import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
@@ -21,6 +24,7 @@ class LoadingCubit extends Cubit<LoadingState> {
   final _userRepository = GetIt.instance<UserRepository>();
   final _categoryRepository = GetIt.instance<CategoryRepository>();
   final _productRepository = GetIt.instance<ProductRepository>();
+  final _ticketRepository = GetIt.instance<TicketRepository>();
 
   LoadingCubit() : super(LoadingInitial()) {
     init();
@@ -57,6 +61,9 @@ class LoadingCubit extends Cubit<LoadingState> {
     await Future.forEach<Product>(
         products, (product) async => await _productRepository.create(product));
     stderr.writeln('<LoadingCubit> Products created successful');
+    await _ticketRepository.create(
+        Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
+    stderr.writeln('<LoadingCubit> Ticket created successful');
     _isLoaded = true;
     return emit(LoadingSuccessful());
   }

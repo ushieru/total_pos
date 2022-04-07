@@ -17,4 +17,8 @@ class TicketCubit extends Cubit<TicketState> {
     final tickets = await _ticketRepository.getAll();
     emit(TicketGlobal(tickets));
   }
+
+  Future<void> setCurrentTicket(Ticket? ticket) async {
+    emit(TicketGlobal(state.tickets, currentTicket: ticket));
+  }
 }

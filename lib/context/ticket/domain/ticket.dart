@@ -3,9 +3,11 @@ import 'package:uuid/uuid.dart';
 
 class Ticket {
   final String id;
+  final String userId;
+  final DateTime dateTime = DateTime.now();
   final List<TicketProduct> ticketProducts;
   final double total;
-  Ticket(this.ticketProducts, {String? id})
+  Ticket(this.ticketProducts, this.userId, {String? id})
       : total = ticketProducts.isEmpty
             ? 0
             : ticketProducts
@@ -13,5 +15,6 @@ class Ticket {
                     productTicket.quantity * productTicket.product.price)
                 .reduce((value, element) => value + element),
         id = id ?? const Uuid().v4();
-  Ticket.empty() : this([]);
+
+  Ticket.empty(String userId) : this([], userId);
 }

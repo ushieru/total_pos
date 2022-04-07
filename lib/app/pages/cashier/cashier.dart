@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:total_pos/app/cubit/session_cubit.dart';
 import 'package:total_pos/app/pages/cashier/cubit/cashier_cubit.dart';
 import 'package:total_pos/app/pages/cashier/widgets/categories.dart';
 import 'package:total_pos/app/pages/cashier/widgets/products_grid.dart';
@@ -12,7 +13,7 @@ class Cashier extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CashierCubit(),
+      create: (context) => CashierCubit(context.read<SessionCubit>().state!),
       child: const _CashierView(),
     );
   }

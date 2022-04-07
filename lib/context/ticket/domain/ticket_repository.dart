@@ -14,9 +14,10 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
                   quantity: _ticketProduct.quantity + 1)
               : _ticketProduct)
           .toList();
-      return Ticket(ticketProducts, id: ticket.id);
+      return Ticket(ticketProducts, ticket.userId, id: ticket.id);
     }
-    return Ticket([...ticket.ticketProducts, ticketProduct], id: ticket.id);
+    return Ticket([...ticket.ticketProducts, ticketProduct], ticket.userId,
+        id: ticket.id);
   }
 
   Future<Ticket> removeTicketProduct(
@@ -30,6 +31,6 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
             : _ticketProduct)
         .where((_ticketProduct) => _ticketProduct.quantity > 0)
         .toList();
-    return Ticket(ticketProducts, id: ticket.id);
+    return Ticket(ticketProducts, ticket.userId, id: ticket.id);
   }
 }
