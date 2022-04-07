@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:total_pos/app/config/global_config.dart';
+import 'package:total_pos/app/cubit/session_cubit.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
 import 'package:total_pos/app/pages/cashier/cashier.dart';
 import 'package:total_pos/app/pages/login/cubit/login_cubit.dart';
@@ -32,6 +33,7 @@ class _LoginView extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       buildWhen: (previous, current) {
         if (current is LoginSuccessful) {
+          context.read<SessionCubit>().setSession(current.user);
           final String route = current.user.role == Role.admin
               ? Admin.routeName
               : Cashier.routeName;
