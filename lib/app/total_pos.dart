@@ -7,11 +7,12 @@ import 'package:total_pos/app/pages/loading/loading.dart';
 import 'package:total_pos/app/pages/login/login.dart';
 
 class TotalPos extends StatelessWidget {
-  const TotalPos({Key? key}) : super(key: key);
+  TotalPos({Key? key}) : super(key: key) {
+    setupLocator();
+  }
 
   @override
   Widget build(BuildContext context) {
-    setupLocator();
     return MaterialApp(
       title: 'Total Pos',
       theme: ThemeData(primarySwatch: GlobalConfig.principalColor),
