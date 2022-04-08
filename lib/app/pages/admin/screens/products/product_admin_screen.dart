@@ -161,7 +161,7 @@ class _ProductAdminView extends StatelessWidget {
                         style: const TextStyle(fontSize: 15))),
                 Expanded(
                     flex: 2,
-                    child: Text(product.descripcion,
+                    child: Text(product.description,
                         style: const TextStyle(
                             fontSize: 15, overflow: TextOverflow.ellipsis))),
                 Expanded(
@@ -174,7 +174,7 @@ class _ProductAdminView extends StatelessWidget {
                             (_category) => _category.id == product.categoryId));
                         _productNameController.text = product.name;
                         _productDescripcionController.text =
-                            product.descripcion;
+                            product.description;
                         _productPrecioController.text =
                             product.price.toString();
                       },
