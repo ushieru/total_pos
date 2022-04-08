@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
 import 'package:total_pos/context/category/domain/category.dart';
@@ -17,7 +18,6 @@ import 'package:total_pos/context/user/domain/user_repository.dart';
 part 'loading_state.dart';
 
 class LoadingCubit extends Cubit<LoadingState> {
-  static bool _isLoaded = false;
   final _accountRepository = GetIt.instance<AccountRepository>();
   final _userRepository = GetIt.instance<UserRepository>();
   final _categoryRepository = GetIt.instance<CategoryRepository>();
@@ -29,7 +29,8 @@ class LoadingCubit extends Cubit<LoadingState> {
   }
 
   Future<void> init() async {
-    if (_isLoaded) {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('_isLoaded') ?? false) {
       return emit(LoadingSuccessful());
     }
     final adminAccount = Account('admin', 'admin');
@@ -57,7 +58,7 @@ class LoadingCubit extends Cubit<LoadingState> {
         products, (product) async => await _productRepository.create(product));
     await _ticketRepository.create(
         Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
-    _isLoaded = true;
+    await prefs.setBool('_isLoaded', true);
     return emit(LoadingSuccessful());
   }
 }

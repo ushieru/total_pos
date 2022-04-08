@@ -8,12 +8,12 @@ import 'package:total_pos/context/product/infrastructure/persistence/in_memory/p
 import 'package:total_pos/context/ticket/domain/ticket_repository.dart';
 import 'package:total_pos/context/ticket/infrastructure/persistence/in_memory/ticket_in_memory.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
-import 'package:total_pos/context/user/infrastructure/persistence/in_memory/user_in_memory.dart';
+import 'package:total_pos/context/user/infrastructure/persistence/postgres/user_postgres.dart';
 
 GetIt getIt = GetIt.instance;
 
 void setupLocator() {
-  getIt.registerSingleton<UserRepository>(UserInMemory());
+  getIt.registerSingleton<UserRepository>(UserPostgres());
   getIt.registerSingleton<AccountRepository>(AccountInMemory());
   getIt.registerSingleton<CategoryRepository>(CategoryInMemory());
   getIt.registerSingleton<ProductRepository>(ProductInMemory());
