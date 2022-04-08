@@ -199,7 +199,9 @@ class _UserAdminScreenView extends StatelessWidget {
                     child: Row(children: [
                   ElevatedButton(
                       onPressed: () {
-                        context.read<UserCubit>().setCurrentRole(user.role);
+                        context
+                            .read<UserCubit>()
+                            .setCurrentRole(stringToRole(user.role));
                         context.read<UserCubit>().setCurrentUser(user);
                       },
                       child: const Icon(Icons.edit)),

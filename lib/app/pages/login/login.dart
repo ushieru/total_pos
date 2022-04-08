@@ -34,7 +34,7 @@ class _LoginView extends StatelessWidget {
       buildWhen: (previous, current) {
         if (current is LoginSuccessful) {
           context.read<SessionCubit>().setSession(current.user);
-          final String route = current.user.role == Role.admin
+          final String route = stringToRole(current.user.role) == Role.admin
               ? Admin.routeName
               : Cashier.routeName;
           Navigator.pushNamedAndRemoveUntil(context, route, (route) => false);
