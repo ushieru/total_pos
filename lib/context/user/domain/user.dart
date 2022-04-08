@@ -10,4 +10,8 @@ class User {
 
   User(this.name, this.email, this.role, this.accountId, {String? id})
       : id = id ?? const Uuid().v4();
+
+  @override
+  String toString() =>
+      'User(id: $id, name: $name, email: $email, role: $role, accountId: $accountId)';
 }

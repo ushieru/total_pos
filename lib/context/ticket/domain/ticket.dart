@@ -17,4 +17,6 @@ class Ticket {
         id = id ?? const Uuid().v4();
 
   Ticket.empty(String userId) : this([], userId);
+  @override
+  String toString() => 'Ticket(id: $id, userId: $userId, dateTime: $dateTime, ticketProducts: $ticketProducts, total: $total)';
 }

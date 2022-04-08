@@ -7,4 +7,6 @@ class TicketProduct {
   TicketProduct(this.product, {int? quantity})
       : quantity = quantity ?? 1,
         id = product.id;
+  @override
+  String toString() => 'TicketProduct(id: $id, product: $product, quantity: $quantity)';
 }
