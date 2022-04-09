@@ -18,7 +18,7 @@ class CategoryAdminScreen extends StatelessWidget {
 
 class _CategoryAdminScreenView extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
-  
+
   final TextEditingController _categoryNameController =
       TextEditingController(text: '');
 
@@ -57,8 +57,9 @@ class _CategoryAdminScreenView extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   final cubit = context.read<CategoryCubit>();
-                  final category = Category(_categoryNameController.text,
-                      id: state.currentCategory?.id);
+                  final category = Category(
+                      name: _categoryNameController.text,
+                      id: state.currentCategory!.id);
                   if (state.currentCategory == null) {
                     cubit.addCategory(category);
                   } else {

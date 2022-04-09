@@ -106,10 +106,10 @@ class _ProductAdminView extends StatelessWidget {
                   } else {
                     final currentProduct = state.currentProduct!;
                     cubit.updateProduct(Product(
-                        _productNameController.text,
-                        _productDescripcionController.text,
-                        double.tryParse(_productPrecioController.text) ?? 0,
-                        state.currentCategory!.id,
+                        name: _productNameController.text,
+                        description: _productDescripcionController.text,
+                        price:
+                            double.tryParse(_productPrecioController.text) ?? 0,
                         id: currentProduct.id));
                   }
                   _productNameController.text = '';
@@ -171,7 +171,8 @@ class _ProductAdminView extends StatelessWidget {
                         final cubit = context.read<ProductCubit>();
                         cubit.setCurrentProduct(product);
                         cubit.setCurrentCategory(state.categories.firstWhere(
-                            (_category) => _category.id == product.categoryId));
+                            (_category) =>
+                                _category.id == product.category.target?.id));
                         _productNameController.text = product.name;
                         _productDescripcionController.text =
                             product.description;

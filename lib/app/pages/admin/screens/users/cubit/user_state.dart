@@ -3,7 +3,7 @@ part of 'user_cubit.dart';
 @immutable
 abstract class UserState {
   final List<User> users;
-  final Role? currentRole;
+  final String? currentRole;
   final User? currentUser;
   final Account? currentAccount;
   const UserState(this.users,
@@ -16,7 +16,7 @@ class UserInitial extends UserState {
 
 class UserGlobal extends UserState {
   const UserGlobal(List<User> users,
-      {Role? currentRole, User? currentUser, Account? currentAccount})
+      {String? currentRole, User? currentUser, Account? currentAccount})
       : super(users,
             currentRole: currentRole,
             currentUser: currentUser,

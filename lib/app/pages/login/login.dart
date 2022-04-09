@@ -5,7 +5,6 @@ import 'package:total_pos/app/cubit/session_cubit.dart';
 import 'package:total_pos/app/pages/admin/admin.dart';
 import 'package:total_pos/app/pages/cashier/cashier.dart';
 import 'package:total_pos/app/pages/login/cubit/login_cubit.dart';
-import 'package:total_pos/context/user/domain/role.dart';
 
 class Login extends StatelessWidget {
   static const String routeName = '/login';
@@ -34,7 +33,7 @@ class _LoginView extends StatelessWidget {
       buildWhen: (previous, current) {
         if (current is LoginSuccessful) {
           context.read<SessionCubit>().setSession(current.user);
-          final String route = current.user.role == Role.admin
+          final String route = current.user.role == 'Admin'
               ? Admin.routeName
               : Cashier.routeName;
           Navigator.pushNamedAndRemoveUntil(context, route, (route) => false);

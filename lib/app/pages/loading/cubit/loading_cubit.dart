@@ -10,7 +10,6 @@ import 'package:total_pos/context/product/domain/product_repository.dart';
 import 'package:total_pos/context/ticket/domain/ticket.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
 import 'package:total_pos/context/ticket/domain/ticket_repository.dart';
-import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
 
@@ -32,31 +31,39 @@ class LoadingCubit extends Cubit<LoadingState> {
     if (_isLoaded) {
       return emit(LoadingSuccessful());
     }
-    final adminAccount = Account('admin', 'admin');
-    final userAccount = Account('user', 'user');
-    final admin = User('admin', 'admin', Role.admin, adminAccount.id);
-    final user = User('user', 'user', Role.user, userAccount.id);
-    final breakfastCategory = Category('Desayunos');
-    final drinksCategory = Category('Bebidas');
+    final adminAccount = Account(user: 'admin', password: 'admin');
+    final userAccount = Account(user: 'user', password: 'user');
+    final admin = User(name: 'admin', email: 'admin', role: 'Admin');
+    final user = User(name: 'user', email: 'user', role: 'User');
+    final breakfastCategory = Category(name: 'Desayunos');
+    final drinksCategory = Category(name: 'Bebidas');
     final products = [
-      Product('Chilaquiles', 'Totopos con salsa', 50, breakfastCategory.id),
-      Product('Huevo a la mexicana', 'Huevo con tomate, cebolla y chile', 30,
-          breakfastCategory.id),
-      Product('Hotcakes', 'Pan a la sarten', 20, breakfastCategory.id),
-      Product('Cafe', 'Infucion de Granos de cafe', 15, drinksCategory.id),
+      Product(name: 'Chilaquiles', description: 'Totopos con salsa', price: 50),
       Product(
-          'Jugo de naranja', 'Jugo natural de naranjas', 15, drinksCategory.id),
+          name: 'Huevo a la mexicana',
+          description: 'Huevo con tomate, cebolla y chile',
+          price: 30),
+      Product(name: 'Hotcakes', description: 'Pan a la sarten', price: 20),
+      Product(
+          name: 'Cafe', description: 'Infucion de Granos de cafe', price: 15),
+      Product(
+          name: 'Jugo de naranja',
+          description: 'Jugo natural de naranjas',
+          price: 15),
     ];
-    await _accountRepository.create(adminAccount);
-    await _accountRepository.create(userAccount);
-    await _userRepository.create(admin);
-    await _userRepository.create(user);
+    // await _accountRepository.create(adminAccount);
+    // await _accountRepository.create(userAccount);
+    await _userRepository.createMany([
+      admin..account.target = adminAccount,
+      user..account.target = userAccount
+    ]);
+    // await _userRepository.create(user..account.target = userAccount);
     await _categoryRepository.create(breakfastCategory);
     await _categoryRepository.create(drinksCategory);
     await Future.forEach<Product>(
         products, (product) async => await _productRepository.create(product));
-    await _ticketRepository.create(
-        Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
+    // await _ticketRepository.create(
+    //     Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
     _isLoaded = true;
     return emit(LoadingSuccessful());
   }

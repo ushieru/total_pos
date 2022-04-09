@@ -38,7 +38,9 @@ class TicketDetailsModal extends StatelessWidget {
                               children: [
                                 Row(children: [
                                   Expanded(
-                                      child: Text(ticket.userId,
+                                      child: Text(
+                                          ticket.user.target?.id.toString() ??
+                                              '',
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600))),
@@ -88,10 +90,10 @@ class _TicketDetails extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: Text(ticketProduct.product.name,
+                  child: Text(ticketProduct.product.target?.name ?? '',
                       style: const TextStyle(fontSize: 15))),
               Expanded(
-                  child: Text('\$' + ticketProduct.product.price.toString(),
+                  child: Text('\$ ${ticketProduct.product.target?.price ?? 0}',
                       style: const TextStyle(fontSize: 15))),
               Expanded(
                   child: Text(ticketProduct.quantity.toString(),

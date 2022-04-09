@@ -46,7 +46,7 @@ class CashierCubit extends Cubit<CashierState> {
 
   Future<void> addTicketProduct(Product ticketProduct) async {
     final ticket = await _ticketRepository.addTicketProduct(
-        state.ticket, TicketProduct(ticketProduct));
+        state.ticket, TicketProduct(quantity: 1));
     emit(CashierGlobal(state.categories, state.products, state.user,
         currentCategory: state.currentCategory, ticket: ticket));
   }

@@ -1,21 +1,22 @@
 import 'package:get_it/get_it.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
-import 'package:total_pos/context/account/infrastructure/persistence/in_memory/account_in_memory.dart';
+import 'package:total_pos/context/account/infrastructure/persistence/object_box/account_object_box.dart';
 import 'package:total_pos/context/category/domain/category_repository.dart';
-import 'package:total_pos/context/category/infrastructure/persistence/in_memory/category_in_memory.dart';
+import 'package:total_pos/context/category/infrastructure/persistence/object_box/category_object_box.dart';
 import 'package:total_pos/context/product/domain/product_repository.dart';
-import 'package:total_pos/context/product/infrastructure/persistence/in_memory/product_in_memory.dart';
+import 'package:total_pos/context/product/infrastructure/persistence/object_box/product_object_box.dart';
 import 'package:total_pos/context/ticket/domain/ticket_repository.dart';
-import 'package:total_pos/context/ticket/infrastructure/persistence/in_memory/ticket_in_memory.dart';
+import 'package:total_pos/context/ticket/infrastructure/persistence/object_box/ticket_object_box.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
-import 'package:total_pos/context/user/infrastructure/persistence/in_memory/user_in_memory.dart';
+import 'package:total_pos/context/user/infrastructure/persistence/object_box/user_object_box.dart';
 
 GetIt getIt = GetIt.instance;
 
-void setupLocator() {
-  getIt.registerSingleton<UserRepository>(UserInMemory());
-  getIt.registerSingleton<AccountRepository>(AccountInMemory());
-  getIt.registerSingleton<CategoryRepository>(CategoryInMemory());
-  getIt.registerSingleton<ProductRepository>(ProductInMemory());
-  getIt.registerSingleton<TicketRepository>(TicketInMemory());
+Future<void> setupLocator() async {
+  getIt.registerSingleton<UserRepository>(UserObjectBox());
+  await Future.delayed(const Duration(seconds: 1));
+  getIt.registerSingleton<AccountRepository>(AccountObjectBox());
+  getIt.registerSingleton<CategoryRepository>(CategoryObjectBox());
+  getIt.registerSingleton<ProductRepository>(ProductObjectBox());
+  getIt.registerSingleton<TicketRepository>(TicketObjectBox());
 }

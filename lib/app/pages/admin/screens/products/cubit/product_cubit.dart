@@ -19,8 +19,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> addProduct(String name, String description, double price) async {
     if (state.currentCategory == null) return;
-    final product =
-        Product(name, description, price, state.currentCategory!.id);
+    final product = Product(name: name, description: description, price: price);
     await _productRepository.create(product);
     getProducts();
   }

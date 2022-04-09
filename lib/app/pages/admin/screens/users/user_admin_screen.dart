@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/screens/users/cubit/user_cubit.dart';
-import 'package:total_pos/context/user/domain/role.dart';
 import 'package:total_pos/context/user/domain/user.dart';
 
 class UserAdminScreen extends StatelessWidget {
@@ -60,7 +59,7 @@ class _UserAdminScreenView extends StatelessWidget {
           const SizedBox(width: 50),
           Expanded(child:
               BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-            return DropdownButton<Role>(
+            return DropdownButton<String>(
                 hint: const Text('Role'),
                 isExpanded: true,
                 isDense: true,
@@ -70,9 +69,10 @@ class _UserAdminScreenView extends StatelessWidget {
                     context.read<UserCubit>().setCurrentRole(role);
                   }
                 },
-                items: [
-                  for (Role role in Role.values)
-                    DropdownMenuItem<Role>(value: role, child: Text(role.name))
+                items: const [
+                  DropdownMenuItem<String>(
+                      value: 'Admin', child: Text('Admin')),
+                  DropdownMenuItem<String>(value: 'User', child: Text('User')),
                 ]);
           }))
         ]),
@@ -192,7 +192,7 @@ class _UserAdminScreenView extends StatelessWidget {
                         Text(user.email, style: const TextStyle(fontSize: 15))),
                 Expanded(
                     flex: 2,
-                    child: Text(user.role.toString().split('.')[1],
+                    child: Text(user.role,
                         style: const TextStyle(
                             fontSize: 15, overflow: TextOverflow.ellipsis))),
                 Expanded(

@@ -54,7 +54,7 @@ class _TicketView extends StatelessWidget {
               Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Row(children: [
                   Expanded(
-                      child: Text(ticket.id,
+                      child: Text(ticket.id.toString(),
                           style: const TextStyle(fontSize: 15))),
                   Expanded(
                       child: Text('\$' + ticket.total.toString(),
