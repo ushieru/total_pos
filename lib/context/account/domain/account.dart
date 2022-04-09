@@ -1,12 +1,12 @@
-import 'package:uuid/uuid.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class Account {
-  final String id;
-  final String password;
-  final String user;
+  int id;
+  String password;
+  String user;
 
-  Account(this.password, this.user, {String? id})
-      : id = id ?? const Uuid().v4();
+  Account({this.id = 0, this.password = '', this.user = ''});
 
   @override
   String toString() => 'Account(id: $id, password: $password, user: $user)';

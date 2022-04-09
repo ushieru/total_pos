@@ -1,17 +1,19 @@
-import 'package:uuid/uuid.dart';
+import 'package:objectbox/objectbox.dart';
+import 'package:total_pos/context/category/domain/category.dart';
 
+@Entity()
 class Product {
-  final String id;
-  final String name;
-  final String description;
-  final double price;
-  final String categoryId;
+  int id;
+  String name;
+  String description;
+  double price;
 
-  Product(this.name, this.description, this.price, this.categoryId,
-      {String? id})
-      : id = id ?? const Uuid().v4();
+  final category = ToOne<Category>();
+
+  Product(
+      {this.id = 0, this.name = '', this.description = '', this.price = 0.0});
 
   @override
   String toString() =>
-      'Product(id: $id, name: $name, description: $description, price: $price, categoryId: $categoryId)';
+      'Product(id: $id, name: $name, description: $description, price: $price, categorie: $category)';
 }

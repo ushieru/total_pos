@@ -1,10 +1,11 @@
-import 'package:uuid/uuid.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class Category {
-  final String id;
-  final String name;
+  int id;
+  String name;
 
-  Category(this.name, {String? id}) : id = id ?? const Uuid().v4();
+  Category({this.id = 0, this.name = ''});
 
   @override
   String toString() => 'Category(id: $id, name: $name)';

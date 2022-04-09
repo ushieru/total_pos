@@ -1,17 +1,18 @@
-import 'package:total_pos/context/user/domain/role.dart';
-import 'package:uuid/uuid.dart';
+import 'package:objectbox/objectbox.dart';
+import 'package:total_pos/context/account/domain/account.dart';
 
+@Entity()
 class User {
-  final String id;
-  final String name;
-  final String email;
-  final Role role;
-  final String accountId;
+  int id;
+  String name;
+  String email;
+  String role;
 
-  User(this.name, this.email, this.role, this.accountId, {String? id})
-      : id = id ?? const Uuid().v4();
+  final account = ToOne<Account>();
+
+  User({this.id = 0, this.name = '', this.email = '', this.role = 'User'});
 
   @override
   String toString() =>
-      'User(id: $id, name: $name, email: $email, role: $role, accountId: $accountId)';
+      'User(id: $id, name: $name, email: $email, role: $role, accountId: ${account.target})';
 }

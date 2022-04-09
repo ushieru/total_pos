@@ -1,12 +1,17 @@
+import 'package:objectbox/objectbox.dart';
 import 'package:total_pos/context/product/domain/product.dart';
 
+@Entity()
 class TicketProduct {
-  final String id;
-  final Product product;
-  final int quantity;
-  TicketProduct(this.product, {int? quantity})
-      : quantity = quantity ?? 1,
-        id = product.id;
+  int id;
+  int quantity;
+  final product = ToOne<Product>();
+
+  TicketProduct({
+    this.id = 0,
+    this.quantity = 0,
+  });
   @override
-  String toString() => 'TicketProduct(id: $id, product: $product, quantity: $quantity)';
+  String toString() =>
+      'TicketProduct(id: $id, product: $product, quantity: $quantity)';
 }
