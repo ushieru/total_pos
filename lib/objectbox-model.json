@@ -1,0 +1,194 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2356645656901198505",
+      "lastPropertyId": "3:8473866318010508319",
+      "name": "Account",
+      "properties": [
+        {
+          "id": "1:1844990175728263712",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3922137723301930508",
+          "name": "password",
+          "type": 9
+        },
+        {
+          "id": "3:8473866318010508319",
+          "name": "user",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:4915120768988061007",
+      "lastPropertyId": "2:2230844225615444419",
+      "name": "Category",
+      "properties": [
+        {
+          "id": "1:3600071282157550851",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2230844225615444419",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:7548037642491921496",
+      "lastPropertyId": "5:2039045377243312289",
+      "name": "Product",
+      "properties": [
+        {
+          "id": "1:6085394731436469754",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2680262622497246882",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:4444268409631938592",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "4:4048306834725503054",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "5:2039045377243312289",
+          "name": "categoryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "1:603565260999157038",
+          "relationTarget": "Category"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:306034626984682291",
+      "lastPropertyId": "4:6089227984837077974",
+      "name": "Ticket",
+      "properties": [
+        {
+          "id": "1:4769332115858019205",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3668351984599660263",
+          "name": "dateTime",
+          "type": 10
+        },
+        {
+          "id": "3:6996319204519241871",
+          "name": "total",
+          "type": 8
+        },
+        {
+          "id": "4:6089227984837077974",
+          "name": "userId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "2:2319839189644621146",
+          "relationTarget": "User"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:8375365180603973842",
+      "lastPropertyId": "3:8336310975096199013",
+      "name": "TicketProduct",
+      "properties": [
+        {
+          "id": "1:2413394927127187577",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1102497468739219229",
+          "name": "quantity",
+          "type": 6
+        },
+        {
+          "id": "3:8336310975096199013",
+          "name": "productId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "3:2596724746302244577",
+          "relationTarget": "Product"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:5094587688369181389",
+      "lastPropertyId": "5:8336935614199164351",
+      "name": "User",
+      "properties": [
+        {
+          "id": "1:9113998322151407623",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4792376697774618183",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:6351146659514931436",
+          "name": "email",
+          "type": 9
+        },
+        {
+          "id": "4:333859061224095027",
+          "name": "role",
+          "type": 9
+        },
+        {
+          "id": "5:8336935614199164351",
+          "name": "accountId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "4:7049283831434798635",
+          "relationTarget": "Account"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "6:5094587688369181389",
+  "lastIndexId": "4:7049283831434798635",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
