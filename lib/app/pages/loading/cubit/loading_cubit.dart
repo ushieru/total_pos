@@ -35,8 +35,16 @@ class LoadingCubit extends Cubit<LoadingState> {
     }
     final adminAccount = Account('admin', 'admin');
     final userAccount = Account('user', 'user');
-    final admin = User('admin', 'admin', Role.admin, adminAccount.id);
-    final user = User('user', 'user', Role.user, userAccount.id);
+    final admin = User(
+        name: 'admin',
+        email: 'admin',
+        role: Role.admin.name,
+        accountId: adminAccount.id);
+    final user = User(
+        name: 'user',
+        email: 'user',
+        role: Role.user.name,
+        accountId: userAccount.id);
     final breakfastCategory = Category('Desayunos');
     final drinksCategory = Category('Bebidas');
     final products = [

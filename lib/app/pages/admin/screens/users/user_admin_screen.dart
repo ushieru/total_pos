@@ -60,7 +60,7 @@ class _UserAdminScreenView extends StatelessWidget {
           const SizedBox(width: 50),
           Expanded(child:
               BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-            return DropdownButton<Role>(
+            return DropdownButton<String>(
                 hint: const Text('Role'),
                 isExpanded: true,
                 isDense: true,
@@ -72,7 +72,8 @@ class _UserAdminScreenView extends StatelessWidget {
                 },
                 items: [
                   for (Role role in Role.values)
-                    DropdownMenuItem<Role>(value: role, child: Text(role.name))
+                    DropdownMenuItem<String>(
+                        value: role.name, child: Text(role.name))
                 ]);
           }))
         ]),
@@ -199,9 +200,7 @@ class _UserAdminScreenView extends StatelessWidget {
                     child: Row(children: [
                   ElevatedButton(
                       onPressed: () {
-                        context
-                            .read<UserCubit>()
-                            .setCurrentRole(stringToRole(user.role));
+                        context.read<UserCubit>().setCurrentRole(user.role);
                         context.read<UserCubit>().setCurrentUser(user);
                       },
                       child: const Icon(Icons.edit)),

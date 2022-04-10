@@ -1,17 +1,20 @@
 import 'package:total_pos/context/shared/domain/serializable.dart';
-import 'package:total_pos/context/user/domain/role.dart';
 import 'package:uuid/uuid.dart';
 
 class User implements Serializable {
-  final String id;
-  final String name;
-  final String email;
-  final String role;
-  final String accountId;
+  String id;
+  String name;
+  String email;
+  String role;
+  String accountId;
 
-  User(this.name, this.email, Role role, this.accountId, {String? id})
-      : role = role.name,
-        id = id ?? const Uuid().v4();
+  User(
+      {String? id,
+      this.name = '',
+      this.email = '',
+      this.role = '',
+      this.accountId = ''})
+      : id = id ?? const Uuid().v4();
 
   @override
   String toString() =>

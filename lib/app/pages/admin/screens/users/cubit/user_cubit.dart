@@ -17,7 +17,7 @@ class UserCubit extends Cubit<UserState> {
     getUsers();
   }
 
-  void setCurrentRole(Role? role) {
+  void setCurrentRole(String? role) {
     emit(UserGlobal(state.users, currentRole: role));
   }
 
@@ -43,8 +43,11 @@ class UserCubit extends Cubit<UserState> {
       throw 'state.currentRole is null';
     }
     final account = await _accountRepository.create(Account(password, user));
-    await _userRepository
-        .create(User(name, email, state.currentRole!, account.id));
+    await _userRepository.create(User(
+        name: name,
+        email: email,
+        role: state.currentRole!,
+        accountId: account.id));
     getUsers();
   }
 
@@ -59,7 +62,10 @@ class UserCubit extends Cubit<UserState> {
         password.isEmpty ? account.password : password, user,
         id: account.id));
     final _user = await _userRepository.update(User(
-        name, email, state.currentRole!, account.id,
+        name: name,
+        email: email,
+        role: state.currentRole!,
+        accountId: account.id,
         id: state.currentUser!.id));
     await _userRepository.update(_user);
     getUsers();
