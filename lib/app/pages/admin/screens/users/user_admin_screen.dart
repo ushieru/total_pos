@@ -134,13 +134,14 @@ class _UserAdminScreenView extends StatelessWidget {
                         _userUserController.text,
                         _userPasswordController.text,
                         _userConfirmPasswordController.text);
+                  } else {
+                    cubit.updateUser(
+                        _userNameController.text,
+                        _userEmailController.text,
+                        _userUserController.text,
+                        _userPasswordController.text,
+                        _userConfirmPasswordController.text);
                   }
-                  cubit.updateUser(
-                      _userNameController.text,
-                      _userEmailController.text,
-                      _userUserController.text,
-                      _userPasswordController.text,
-                      _userConfirmPasswordController.text);
 
                   _userNameController.text = '';
                   _userEmailController.text = '';
@@ -193,7 +194,7 @@ class _UserAdminScreenView extends StatelessWidget {
                         Text(user.email, style: const TextStyle(fontSize: 15))),
                 Expanded(
                     flex: 2,
-                    child: Text(user.role.toString().split('.')[1],
+                    child: Text(user.role,
                         style: const TextStyle(
                             fontSize: 15, overflow: TextOverflow.ellipsis))),
                 Expanded(
