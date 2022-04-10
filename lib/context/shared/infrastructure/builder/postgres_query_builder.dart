@@ -1,4 +1,4 @@
-import 'package:total_pos/context/shared/domain/model.dart';
+import 'package:total_pos/context/shared/domain/serializable.dart';
 import 'package:total_pos/context/shared/domain/query_builder_repository.dart';
 
 class PostgresQueryBuilder extends QueryBuilderRepository {
@@ -7,7 +7,7 @@ class PostgresQueryBuilder extends QueryBuilderRepository {
   PostgresQueryBuilder({this.schema = 'public'});
 
   @override
-  String delete(Model model) {
+  String delete(Serializable model) {
     return 'DELETE FROM $schema."${getTablename(model)}" '
         'WHERE id = ${model.toJson()['id']}';
   }
@@ -24,7 +24,7 @@ class PostgresQueryBuilder extends QueryBuilderRepository {
   }
 
   @override
-  String insert(Model model) {
+  String insert(Serializable model) {
     var payload = model.toJson();
     var columns = payload.keys.map((e) => '"$e"').join(', ');
     var values = payload.values
@@ -36,7 +36,7 @@ class PostgresQueryBuilder extends QueryBuilderRepository {
   }
 
   @override
-  String update(Model model) {
+  String update(Serializable model) {
     return 'UPDATE $schema."${getTablename(model)}" '
         'SET ${model.toJson().entries.map((e) => '"${e.key}" = ${e.value.runtimeType == String ? "'${e.value}'" : e.value}').join(', ')} '
         'WHERE id = ${model.toJson()['id']}';

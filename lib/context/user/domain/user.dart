@@ -1,8 +1,8 @@
-import 'package:total_pos/context/shared/domain/model.dart';
+import 'package:total_pos/context/shared/domain/serializable.dart';
 import 'package:total_pos/context/user/domain/role.dart';
 import 'package:uuid/uuid.dart';
 
-class User implements Model {
+class User implements Serializable {
   final String id;
   final String name;
   final String email;
