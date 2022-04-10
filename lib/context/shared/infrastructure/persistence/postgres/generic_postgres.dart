@@ -7,40 +7,40 @@ import 'package:total_pos/context/shared/infrastructure/persistence/postgres/pos
 class GenericPostgres<T extends Serializable>
     implements GenericCrudRepository<T> {
   final pConnection = PostgresConnection();
-  final _queryBuilderRepository = PostgresQueryBuilder();
+  final queryBuilderRepository = PostgresQueryBuilder();
 
   @override
   Future<T> create(T object) async {
     final connection = await pConnection.getConnection();
-    await connection.query(_queryBuilderRepository.insert(object));
+    await connection.query(queryBuilderRepository.insert(object));
     return object;
   }
 
   @override
   Future<void> delete(T object) async {
     final connection = await pConnection.getConnection();
-    await connection.query(_queryBuilderRepository.delete(object));
+    await connection.query(queryBuilderRepository.delete(object));
   }
 
   @override
   Future<List<T>> getAll() async {
     final connection = await pConnection.getConnection();
-    final result = await connection.query(_queryBuilderRepository.findAll<T>());
-    return usersToPostgreSQLResult(result);
+    final result = await connection.query(queryBuilderRepository.findAll<T>());
+    return genericToPostgreSQLResult(result);
   }
 
   @override
   Future<T> getByID(String id) async {
     final connection = await pConnection.getConnection();
     final result =
-        await connection.query(_queryBuilderRepository.findById<T>(id));
-    return usersToPostgreSQLResult(result).first;
+        await connection.query(queryBuilderRepository.findById<T>(id));
+    return genericToPostgreSQLResult(result).first;
   }
 
   @override
   Future<T> update(T object) async {
     final connection = await pConnection.getConnection();
-    connection.query(_queryBuilderRepository.update(object));
+    connection.query(queryBuilderRepository.update(object));
     return object;
   }
 
@@ -48,7 +48,7 @@ class GenericPostgres<T extends Serializable>
     throw 'Override this method';
   }
 
-  List<T> usersToPostgreSQLResult(PostgreSQLResult result) {
+  List<T> genericToPostgreSQLResult(PostgreSQLResult result) {
     return result.map((row) => genericToPostgreSQLResultRow(row)).toList();
   }
 }

@@ -10,7 +10,7 @@ class UserPostgres extends GenericPostgres<User> implements UserRepository {
     final connection = await pConnection.getConnection();
     final result = await connection.query(
         "SELECT * FROM public.\"user\" WHERE \"accountId\" = '${account.id}'");
-    return usersToPostgreSQLResult(result).first;
+    return genericToPostgreSQLResult(result).first;
   }
 
   @override
