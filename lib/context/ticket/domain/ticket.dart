@@ -1,7 +1,8 @@
+import 'package:total_pos/context/shared/domain/serializable.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
 import 'package:uuid/uuid.dart';
 
-class Ticket {
+class Ticket implements Serializable {
   final String id;
   final String userId;
   final DateTime dateTime = DateTime.now();
@@ -18,5 +19,17 @@ class Ticket {
 
   Ticket.empty(String userId) : this([], userId);
   @override
-  String toString() => 'Ticket(id: $id, userId: $userId, dateTime: $dateTime, ticketProducts: $ticketProducts, total: $total)';
+  String toString() =>
+      'Ticket(id: $id, userId: $userId, dateTime: $dateTime, ticketProducts: $ticketProducts, total: $total)';
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userId': userId,
+      'dateTime': dateTime,
+      'ticketProducts': ticketProducts,
+      'total': total
+    };
+  }
 }
