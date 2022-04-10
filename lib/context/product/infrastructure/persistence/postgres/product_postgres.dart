@@ -8,7 +8,9 @@ class ProdcutPostgres extends GenericPostgres<Product>
     implements ProductRepository {
   @override
   genericToPostgreSQLResultRow(PostgreSQLResultRow row) {
-    return Product(row[1], row[4], row[2], row[3], id: row[0]);
+    return Product(
+        row[1], row[2], double.tryParse(row[3] as String) ?? 0.0, row[4],
+        id: row[0]);
   }
 
   @override
