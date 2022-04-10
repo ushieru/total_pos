@@ -1,3 +1,4 @@
+import 'package:postgres/postgres.dart';
 import 'package:total_pos/context/shared/infrastructure/persistence/postgres/generic_postgres.dart';
 import 'package:total_pos/context/ticket/domain/ticket.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
@@ -36,5 +37,11 @@ class TicketPostgres extends GenericPostgres<Ticket>
         .where((_ticketProduct) => _ticketProduct.quantity > 0)
         .toList();
     return Ticket(ticketProducts, ticket.userId, id: ticket.id);
+  }
+
+  @override
+  Ticket genericToPostgreSQLResultRow(PostgreSQLResultRow row) {
+    // TODO: implement genericToPostgreSQLResultRow
+    throw UnimplementedError();
   }
 }
