@@ -2,22 +2,25 @@ import 'package:postgres/postgres.dart';
 import 'package:total_pos/context/shared/infrastructure/persistence/connection_mananger.dart';
 
 class PostgresConnection extends ConnectionManager<PostgreSQLConnection> {
-  final String _host;
-  final int _port;
-  final String _dbName;
-  final String _user;
-  final String _password;
+  final String host;
+  final int port;
+  final String dbName;
+  final String user;
+  final String password;
   static PostgreSQLConnection? _connection;
 
-  PostgresConnection(this._dbName, this._user, this._password,
-      {String host = 'localhost', int port = 5432})
-      : _host = host,
-        _port = port;
+  PostgresConnection(
+      {this.dbName = 'total_pos',
+      this.user = 'postgres',
+      this.password = 'postgres',
+      this.host = 'localhost',
+      this.port = 5432});
 
-  Future<void> _connect() async {
-    _connection = PostgreSQLConnection(_host, _port, _dbName,
-        username: _user, password: _password);
-    await _connection!.open();
+  Future<PostgreSQLConnection> _connect() async {
+    final connection = PostgreSQLConnection(host, port, dbName,
+        username: user, password: password);
+    await connection.open();
+    return connection;
   }
 
   @override
@@ -27,10 +30,7 @@ class PostgresConnection extends ConnectionManager<PostgreSQLConnection> {
   }
 
   @override
-  Future<PostgreSQLConnection> getConnection() async {
-    if (_connection == null) {
-      await _connect();
-    }
-    return _connection!;
+  getConnection() async {
+    return _connection ??= await _connect();
   }
 }
