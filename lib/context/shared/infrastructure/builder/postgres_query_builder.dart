@@ -9,17 +9,17 @@ class PostgresQueryBuilder extends QueryBuilderRepository {
   @override
   String delete(Serializable model) {
     return 'DELETE FROM $schema."${getTablename(model)}" '
-        'WHERE id = ${model.toJson()['id']}';
+        'WHERE id = \'${model.toJson()['id']}\'';
   }
 
   @override
   String findAll<T>() {
-    return 'SELECT * FROM $schema."${T.runtimeType.toString().toLowerCase()}"';
+    return 'SELECT * FROM $schema."${T.toString().toLowerCase()}"';
   }
 
   @override
   String findById<T>(String id) {
-    return 'SELECT * FROM $schema."${T.runtimeType.toString().toLowerCase()}" '
+    return 'SELECT * FROM $schema."${T.toString().toLowerCase()}" '
         'WHERE id = \'$id\'';
   }
 
@@ -39,6 +39,6 @@ class PostgresQueryBuilder extends QueryBuilderRepository {
   String update(Serializable model) {
     return 'UPDATE $schema."${getTablename(model)}" '
         'SET ${model.toJson().entries.map((e) => '"${e.key}" = ${e.value.runtimeType == String ? "'${e.value}'" : e.value}').join(', ')} '
-        'WHERE id = ${model.toJson()['id']}';
+        'WHERE id = \'${model.toJson()['id']}\'';
   }
 }
