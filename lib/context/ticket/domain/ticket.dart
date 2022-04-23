@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:total_pos/context/shared/domain/serializable.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
 import 'package:uuid/uuid.dart';
@@ -5,11 +6,12 @@ import 'package:uuid/uuid.dart';
 class Ticket implements Serializable {
   final String id;
   final String userId;
-  final DateTime dateTime = DateTime.now();
+  final DateTime dateTime;
   final List<TicketProduct> ticketProducts;
   final double total;
-  Ticket(this.ticketProducts, this.userId, {String? id})
-      : total = ticketProducts.isEmpty
+  Ticket(this.ticketProducts, this.userId, {String? id, DateTime? dateTime})
+      : dateTime = dateTime ?? DateTime.now(),
+        total = ticketProducts.isEmpty
             ? 0
             : ticketProducts
                 .map<double>((productTicket) =>
@@ -22,6 +24,12 @@ class Ticket implements Serializable {
       'Ticket(id: $id, userId: $userId, dateTime: $dateTime, ticketProducts: $ticketProducts, total: $total)';
   @override
   Map<String, dynamic> toJson() {
-    return {'id': id, 'userId': userId, 'dateTime': dateTime, 'total': total};
+    return {
+      'id': id,
+      'userId': userId,
+      'datetime': dateTime.millisecondsSinceEpoch,
+      'products': jsonEncode(ticketProducts.map((p) => p.toJson()).toList()),
+      'total': total
+    };
   }
 }

@@ -42,7 +42,14 @@ class TicketPostgres extends GenericPostgres<Ticket>
 
   @override
   Ticket genericToPostgreSQLResultRow(PostgreSQLResultRow row) {
-    // TODO: implement genericToPostgreSQLResultRow
-    throw UnimplementedError();
+    return Ticket(
+        (row[4] as List<dynamic>)
+            .map((product) => TicketProduct(
+                Product.fromJson(product), row[0] as String,
+                quantity: product['quantity']))
+            .toList(),
+        row[1] as String,
+        id: row[0],
+        dateTime: DateTime.fromMillisecondsSinceEpoch(row[2] as int));
   }
 }

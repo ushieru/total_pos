@@ -16,6 +16,11 @@ class Product implements Serializable {
         ticketProduct.price, ticketProduct.categoryId,
         id: ticketProduct.id);
   }
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(json['name'] as String, json['description'] as String,
+        json['price'] as double, json['categoryId'] as String,
+        id: json['id'] as String);
+  }
   @override
   String toString() =>
       'Product(id: $id, name: $name, description: $description, price: $price, categoryId: $categoryId)';

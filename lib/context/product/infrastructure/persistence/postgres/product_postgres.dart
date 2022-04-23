@@ -17,7 +17,7 @@ class ProdcutPostgres extends GenericPostgres<Product>
   Future<List<Product>> getProductsByCategory(Category category) async {
     final connection = await pConnection.getConnection();
     final result = await connection.query(
-        "SELECT * FROM public.\"product\" WHERE \"caegoryId\" = '${category.id}'");
+        "SELECT * FROM public.\"product\" WHERE \"categoryId\" = '${category.id}'");
     return genericToPostgreSQLResult(result);
   }
 }

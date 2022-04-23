@@ -60,7 +60,7 @@ class _TicketView extends StatelessWidget {
                       child: Text('\$' + ticket.total.toString(),
                           style: const TextStyle(fontSize: 15))),
                   Expanded(
-                      child: Text(ticket.dateTime.toString().split(' ')[0],
+                      child: Text(ticket.dateTime.toString().substring(0, 16),
                           style: const TextStyle(
                               fontSize: 15, overflow: TextOverflow.ellipsis))),
                   Expanded(
