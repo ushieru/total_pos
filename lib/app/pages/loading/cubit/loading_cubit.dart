@@ -64,8 +64,8 @@ class LoadingCubit extends Cubit<LoadingState> {
     await _categoryRepository.create(drinksCategory);
     await Future.forEach<Product>(
         products, (product) async => await _productRepository.create(product));
-    await _ticketRepository.create(
-        Ticket(products.map((e) => TicketProduct(e)).toList(), user.id));
+    final ticket = Ticket([], user.id);
+    await _ticketRepository.create(ticket);
     await prefs.setBool('_isLoaded', true);
     return emit(LoadingSuccessful());
   }

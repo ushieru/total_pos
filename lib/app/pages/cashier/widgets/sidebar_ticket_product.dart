@@ -14,7 +14,7 @@ class SidebarTicketProduct extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Expanded(
-            child: Text(ticketProduct.product.name,
+            child: Text(ticketProduct.name,
                 style: const TextStyle(
                     fontSize: 20, overflow: TextOverflow.ellipsis))),
         SizedBox(
@@ -30,7 +30,7 @@ class SidebarTicketProduct extends StatelessWidget {
             style: const TextStyle(fontSize: 20)),
         Text(
             '\$' +
-                (ticketProduct.quantity * ticketProduct.product.price)
+                (ticketProduct.quantity * ticketProduct.price)
                     .toString(),
             style: const TextStyle(fontSize: 20))
       ]),

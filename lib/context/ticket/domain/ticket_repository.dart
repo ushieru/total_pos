@@ -1,3 +1,4 @@
+import 'package:total_pos/context/product/domain/product.dart';
 import 'package:total_pos/context/shared/domain/generic_crud_repository.dart';
 import 'package:total_pos/context/ticket/domain/ticket.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
@@ -10,7 +11,7 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
     if (isTicketProductInTicket) {
       final ticketProducts = ticket.ticketProducts
           .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-              ? TicketProduct(ticketProduct.product,
+              ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
                   quantity: _ticketProduct.quantity + 1)
               : _ticketProduct)
           .toList();
@@ -26,7 +27,7 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
         .firstWhere((_ticketProduct) => _ticketProduct.id == ticketProduct.id);
     final ticketProducts = ticket.ticketProducts
         .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-            ? TicketProduct(ticketProduct.product,
+            ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
                 quantity: _ticketProduct.quantity - 1)
             : _ticketProduct)
         .where((_ticketProduct) => _ticketProduct.quantity > 0)

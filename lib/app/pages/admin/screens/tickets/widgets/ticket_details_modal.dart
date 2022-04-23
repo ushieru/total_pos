@@ -88,10 +88,10 @@ class _TicketDetails extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: Text(ticketProduct.product.name,
+                  child: Text(ticketProduct.name,
                       style: const TextStyle(fontSize: 15))),
               Expanded(
-                  child: Text('\$' + ticketProduct.product.price.toString(),
+                  child: Text('\$' + ticketProduct.price.toString(),
                       style: const TextStyle(fontSize: 15))),
               Expanded(
                   child: Text(ticketProduct.quantity.toString(),

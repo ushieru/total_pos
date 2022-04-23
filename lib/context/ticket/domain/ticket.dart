@@ -13,7 +13,7 @@ class Ticket implements Serializable {
             ? 0
             : ticketProducts
                 .map<double>((productTicket) =>
-                    productTicket.quantity * productTicket.product.price)
+                    productTicket.quantity * productTicket.price)
                 .reduce((value, element) => value + element),
         id = id ?? const Uuid().v4();
 
@@ -24,12 +24,6 @@ class Ticket implements Serializable {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'userId': userId,
-      'dateTime': dateTime,
-      'ticketProducts': ticketProducts,
-      'total': total
-    };
+    return {'id': id, 'userId': userId, 'dateTime': dateTime, 'total': total};
   }
 }
