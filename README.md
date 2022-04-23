@@ -9,13 +9,17 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 
 #### Usuarios por default en memoria
 
-| Role         | User      |  Password  |
-|--------------|-----------|------------|
-| Admin        | admin     | admin      |
-| User         | user      | user       |
+| Role  | User  | Password |
+| ----- | ----- | -------- |
+| Admin | admin | admin    |
+| User  | user  | user     |
 
 
 [WEB PREVIEW](https://total-3r4jyl7qo-ushieru.vercel.app/)
+
+## Postgres
+Pueden iniciar la base de datos con el archivo [db_dump.sql](db_dump.sql)
+y modificar los parametros de la conexcion en el [archivo de inicializacion](lib/app/config//setup_locator.dart) en el constructor de PostgresConnection.
 
 ## Soporte
 
@@ -26,7 +30,7 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 
 ## TODO List
 
-* [ ] Agregar base de datos
+* [X] Agregar base de datos
 * [ ] Agregar controlador de mesas
 * [ ] Agregar controlador de impresoras
 * [ ] Agregar soporte para GRPC
