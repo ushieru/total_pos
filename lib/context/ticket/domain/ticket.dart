@@ -16,12 +16,10 @@ class Ticket implements Serializable {
                     productTicket.quantity * productTicket.price)
                 .reduce((value, element) => value + element),
         id = id ?? const Uuid().v4();
-
   Ticket.empty(String userId) : this([], userId);
   @override
   String toString() =>
       'Ticket(id: $id, userId: $userId, dateTime: $dateTime, ticketProducts: $ticketProducts, total: $total)';
-
   @override
   Map<String, dynamic> toJson() {
     return {'id': id, 'userId': userId, 'dateTime': dateTime, 'total': total};
