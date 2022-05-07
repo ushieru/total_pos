@@ -18,7 +18,7 @@
 > Recomiendo levantar el proyecto con docker-compose.
 
 Pueden iniciar la base de datos con el archivo [dump_db.sql](lib/backend/assets/postgres/dump_db.sql)
-y modificar los parametros de la conexcion en el [archivo de inicializacion](lib/app/config//setup_locator.dart) en el constructor de PostgresConnection.
+y modificar los parametros de la conexion en el [archivo de inicializacion](lib/app/config//setup_locator.dart) en el constructor de PostgresConnection.
 
 ## Soporte
 
