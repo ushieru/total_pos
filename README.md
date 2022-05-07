@@ -4,9 +4,6 @@
 
 ### ⚠️ En Desarrollo ⚠️
 
-Por el momento el sistema funciona solo con repositorios en memoria.
-Habra una version web de ejemplo con las funciones basicas del sistema pero no se planea dar soporte web al proyecto (por ahora, o por lo menos hasta que el WASM de Flutter pese >2Mb).
-
 #### Usuarios por default en memoria
 
 | Role  | User  | Password |
@@ -18,7 +15,9 @@ Habra una version web de ejemplo con las funciones basicas del sistema pero no s
 [WEB PREVIEW](https://total-3r4jyl7qo-ushieru.vercel.app/)
 
 ## Postgres
-Pueden iniciar la base de datos con el archivo [db_dump.sql](db_dump.sql)
+> Recomiendo levantar el proyecto con docker-compose.
+
+Pueden iniciar la base de datos con el archivo [dump_db.sql](lib/backend/assets/postgres/dump_db.sql)
 y modificar los parametros de la conexcion en el [archivo de inicializacion](lib/app/config//setup_locator.dart) en el constructor de PostgresConnection.
 
 ## Soporte
