@@ -1,12 +1,14 @@
-enum Role { admin, user }
+enum Role { admin, waiter, cashier }
 
 Role stringToRole(String role) {
   switch (role) {
     case 'admin':
       return Role.admin;
-    case 'user':
-      return Role.user;
+    case 'waiter':
+      return Role.waiter;
+    case 'cashier':
+      return Role.cashier;
     default:
-      return Role.user;
+      return Role.waiter;
   }
 }
