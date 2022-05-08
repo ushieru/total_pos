@@ -4,6 +4,7 @@ import 'package:total_pos/app/config/global_config.dart';
 import 'package:total_pos/app/pages/admin/cubit/admin_cubit.dart';
 import 'package:total_pos/app/pages/admin/screens/categories/category_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/products/product_admin_screen.dart';
+import 'package:total_pos/app/pages/admin/screens/tables/tables_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/tickets/ticket_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/screens/users/user_admin_screen.dart';
 import 'package:total_pos/app/pages/admin/widgets/welcome.dart';
@@ -77,6 +78,8 @@ class _AdminView extends StatelessWidget {
                     const UserAdminScreen()),
                 _buildIconButton(
                     4, 'Tickets', Icons.receipt, const TicketAdminScreen()),
+                _buildIconButton(
+                    5, 'Mesas', Icons.grid_on, const TablesAdminScreen()),
               ]);
             })),
             Column(children: [
