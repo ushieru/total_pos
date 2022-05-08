@@ -6,6 +6,8 @@ import 'package:total_pos/context/category/infrastructure/persistence/postgres/c
 import 'package:total_pos/context/product/domain/product_repository.dart';
 import 'package:total_pos/context/product/infrastructure/persistence/postgres/product_postgres.dart';
 import 'package:total_pos/context/shared/infrastructure/persistence/postgres/postgres_connection.dart';
+import 'package:total_pos/context/table/domain/table_repository.dart';
+import 'package:total_pos/context/table/infrastructure/persistence/postgres/table_postgres.dart';
 import 'package:total_pos/context/ticket/domain/ticket_repository.dart';
 import 'package:total_pos/context/ticket/infrastructure/persistence/postgres/ticket_postgres.dart';
 import 'package:total_pos/context/user/domain/user_repository.dart';
@@ -20,4 +22,5 @@ Future<void> setupLocator() async {
   getIt.registerSingleton<CategoryRepository>(CategoryPostgres());
   getIt.registerSingleton<ProductRepository>(ProdcutPostgres());
   getIt.registerSingleton<TicketRepository>(TicketPostgres());
+  getIt.registerSingleton<TableRepository>(TablePostgres());
 }
