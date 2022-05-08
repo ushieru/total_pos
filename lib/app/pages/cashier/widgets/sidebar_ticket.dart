@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:total_pos/app/config/global_config.dart';
+import 'package:total_pos/app/cubit/session_cubit.dart';
 import 'package:total_pos/app/pages/cashier/cubit/cashier_cubit.dart';
 import 'package:total_pos/app/pages/cashier/widgets/sidebar_ticket_product.dart';
-import 'package:total_pos/app/pages/login/login.dart';
 import 'package:total_pos/context/ticket/domain/ticket_product.dart';
+import 'package:total_pos/context/user/domain/role.dart';
 
 class SidebarTicket extends StatelessWidget {
   const SidebarTicket({Key? key}) : super(key: key);
+
+  void _exit(BuildContext context) {
+    final sessionCubit = context.read<SessionCubit>();
+    final cashierCubit = context.read<CashierCubit>();
+    if (cashierCubit.state.ticket.total > 0 &&
+        sessionCubit.state.user!.role == Role.waiter.name) {
+      Navigator.pop(context, cashierCubit.state.ticket);
+    } else {
+      Navigator.pop(context);
+    }
+    if (cashierCubit.fromTable) {
+      sessionCubit.deleteSession(redirect: false);
+    } else {
+      sessionCubit.deleteSession();
+    }
+  }
+
+  _checkout(BuildContext context) {
+    context.read<CashierCubit>().saveTicket().then((_) => _exit(context));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +48,7 @@ class SidebarTicket extends StatelessWidget {
             const Text('Ticket',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             IconButton(
-                onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                    context, Login.routeName, (route) => false),
+                onPressed: () => _exit(context),
                 icon: const Icon(Icons.exit_to_app))
           ]),
           Expanded(
@@ -62,7 +82,7 @@ class SidebarTicket extends StatelessWidget {
                         primary: state.ticket.total == 0
                             ? Colors.grey
                             : GlobalConfig.principalColor),
-                    onPressed: () => context.read<CashierCubit>().saveTicket(),
+                    onPressed: () => _checkout(context),
                     child: const Icon(Icons.attach_money_rounded));
               }))
         ]));

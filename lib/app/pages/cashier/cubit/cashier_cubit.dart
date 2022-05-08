@@ -16,9 +16,15 @@ class CashierCubit extends Cubit<CashierState> {
   final _categoryRepository = GetIt.instance.get<CategoryRepository>();
   final _productRepository = GetIt.instance.get<ProductRepository>();
   final _ticketRepository = GetIt.instance.get<TicketRepository>();
+  final bool fromTable;
 
-  CashierCubit(User user) : super(CashierInitial(user)) {
+  CashierCubit(User user, this.fromTable) : super(CashierInitial(user)) {
     initCashier();
+  }
+
+  setTicket(String ticketID) async {
+    final ticket = await _ticketRepository.getByID(ticketID);
+    emit(CashierGlobal.copyWith(state, ticket: ticket, updateTicket: true));
   }
 
   Future<void> initCashier() async {
@@ -26,35 +32,35 @@ class CashierCubit extends Cubit<CashierState> {
     if (categories.isNotEmpty) {
       loadProductsByCategory(categories.first);
     }
-    emit(CashierGlobal(categories, state.products, state.user,
-        currentCategory: categories.first));
+    emit(CashierGlobal.copyWith(state, categories: categories));
   }
 
   Future<void> loadProductsByCategory(Category category) async {
     if (state.currentCategory != null &&
         category.id == state.currentCategory!.id) return;
     final products = await _productRepository.getProductsByCategory(category);
-    emit(CashierGlobal(state.categories, products, state.user,
-        currentCategory: category, ticket: state.ticket));
+    emit(CashierGlobal.copyWith(state,
+        products: products, currentCategory: category));
   }
 
   Future<void> saveTicket() async {
     if (state.ticket.total == 0) return;
-    await _ticketRepository.create(state.ticket);
-    initCashier();
+    if (state.updateTicket) {
+      await _ticketRepository.update(state.ticket);
+    } else {
+      await _ticketRepository.create(state.ticket);
+    }
   }
 
   Future<void> addTicketProduct(Product ticketProduct) async {
     final ticket = await _ticketRepository.addTicketProduct(
-        state.ticket, TicketProduct(ticketProduct, state.ticket.id));
-    emit(CashierGlobal(state.categories, state.products, state.user,
-        currentCategory: state.currentCategory, ticket: ticket));
+        state.ticket, TicketProduct(ticketProduct));
+    emit(CashierGlobal.copyWith(state, ticket: ticket));
   }
 
   Future<void> removeTicketProduct(TicketProduct ticketProduct) async {
     final ticket = await _ticketRepository.removeTicketProduct(
         state.ticket, ticketProduct);
-    emit(CashierGlobal(state.categories, state.products, state.user,
-        currentCategory: state.currentCategory, ticket: ticket));
+    emit(CashierGlobal.copyWith(state, ticket: ticket));
   }
 }

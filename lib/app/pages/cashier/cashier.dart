@@ -12,8 +12,10 @@ class Cashier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ticketID = ModalRoute.of(context)!.settings.arguments as String?;
     return BlocProvider(
-      create: (context) => CashierCubit(context.read<SessionCubit>().state!),
+      create: (context) => CashierCubit(
+          context.read<SessionCubit>().state.user!, ticketID != null),
       child: const _CashierView(),
     );
   }
@@ -24,6 +26,10 @@ class _CashierView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ticketID = ModalRoute.of(context)!.settings.arguments as String?;
+    if (ticketID != null && ticketID.isNotEmpty) {
+      context.read<CashierCubit>().setTicket(ticketID);
+    }
     return Scaffold(
         body: Row(children: [
       Expanded(
