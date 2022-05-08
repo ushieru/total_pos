@@ -15,7 +15,7 @@ class TicketPostgres extends GenericPostgres<Ticket>
     if (isTicketProductInTicket) {
       final ticketProducts = ticket.ticketProducts
           .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-              ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
+              ? TicketProduct(Product.fromProduct(ticketProduct),
                   quantity: _ticketProduct.quantity + 1)
               : _ticketProduct)
           .toList();
@@ -32,7 +32,7 @@ class TicketPostgres extends GenericPostgres<Ticket>
         .firstWhere((_ticketProduct) => _ticketProduct.id == ticketProduct.id);
     final ticketProducts = ticket.ticketProducts
         .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-            ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
+            ? TicketProduct(Product.fromProduct(ticketProduct),
                 quantity: _ticketProduct.quantity - 1)
             : _ticketProduct)
         .where((_ticketProduct) => _ticketProduct.quantity > 0)
@@ -43,9 +43,8 @@ class TicketPostgres extends GenericPostgres<Ticket>
   @override
   Ticket genericToPostgreSQLResultRow(PostgreSQLResultRow row) {
     return Ticket(
-        (row[4] as List<dynamic>)
-            .map((product) => TicketProduct(
-                Product.fromJson(product), row[0] as String,
+        (row[3] as List<dynamic>)
+            .map((product) => TicketProduct(Product.fromJson(product),
                 quantity: product['quantity']))
             .toList(),
         row[1] as String,

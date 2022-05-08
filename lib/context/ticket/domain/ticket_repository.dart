@@ -11,7 +11,7 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
     if (isTicketProductInTicket) {
       final ticketProducts = ticket.ticketProducts
           .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-              ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
+              ? TicketProduct(Product.fromProduct(ticketProduct),
                   quantity: _ticketProduct.quantity + 1)
               : _ticketProduct)
           .toList();
@@ -27,7 +27,7 @@ abstract class TicketRepository implements GenericCrudRepository<Ticket> {
         .firstWhere((_ticketProduct) => _ticketProduct.id == ticketProduct.id);
     final ticketProducts = ticket.ticketProducts
         .map((_ticketProduct) => _ticketProduct.id == ticketProduct.id
-            ? TicketProduct(Product.fromProduct(ticketProduct), ticket.id,
+            ? TicketProduct(Product.fromProduct(ticketProduct),
                 quantity: _ticketProduct.quantity - 1)
             : _ticketProduct)
         .where((_ticketProduct) => _ticketProduct.quantity > 0)
