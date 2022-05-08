@@ -4,7 +4,7 @@
 
 ### ⚠️ En Desarrollo ⚠️
 
-> La implementacion con postgres es la mas avanzada [echale un ojo](https://github.com/ushieru/total_pos)
+> La implementacion con postgres es la mas avanzada [echale un ojo](https://github.com/ushieru/total_pos/tree/postgres).
 
 Por el momento el sistema funciona solo con repositorios en memoria.
 Habra una version web de ejemplo con las funciones basicas del sistema pero no se planea dar soporte web al proyecto (por ahora, o por lo menos hasta que el WASM de Flutter pese >2Mb).
