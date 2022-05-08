@@ -19,6 +19,9 @@ class LoginCubit extends Cubit<LoginState> {
       Account account =
           await _accountRepository.getAccountByUserAndPassword(user, password);
       final _user = await _userRepository.getUserByAccount(account);
+      if (_user.role == 'waiter') {
+        return;
+      }
       emit(LoginSuccessful(_user));
     } catch (e) {
       print(e);
