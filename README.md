@@ -30,7 +30,7 @@ y modificar los parametros de la conexion en el [archivo de inicializacion](lib/
 ## TODO List
 
 * [X] Agregar base de datos
-* [ ] Agregar controlador de mesas
+* [X] Agregar controlador de mesas
 * [ ] Agregar controlador de impresoras
 * [ ] Agregar soporte para GRPC
 * [ ] Agregar cliente para dispositivos moviles
