@@ -33,3 +33,12 @@ CREATE TABLE IF NOT EXISTS public."ticket" (
     "total" numeric NOT NULL,
     CONSTRAINT ticket_pkey PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS public."table" (
+    "id" character varying COLLATE pg_catalog."default" NOT NULL,
+    "name" character varying COLLATE pg_catalog."default" NOT NULL,
+    "index" integer NOT NULL,
+    "ticketId" character varying COLLATE pg_catalog."default" NOT NULL,
+    "accountName" character varying COLLATE pg_catalog."default" NOT NULL,
+    "status" character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT table_pkey PRIMARY KEY (id)
+);
