@@ -1,5 +1,6 @@
 import 'package:total_pos/context/account/domain/account.dart';
 import 'package:total_pos/context/account/domain/account_repository.dart';
+import 'package:total_pos/context/user/domain/role.dart';
 
 class AccountInMemory extends AccountRepository {
   static final Map<String, Account> _accounts = <String, Account>{};
@@ -48,5 +49,11 @@ class AccountInMemory extends AccountRepository {
     return _accounts.values.firstWhere(
         (account) => account.user == user && account.password == password,
         orElse: () => throw '<AccountInMemory> Account not found');
+  }
+
+  @override
+  Future<List<Account>> getAccountsByRole(Role role) async {
+    // Unsuport method in this repository
+    return [];
   }
 }
