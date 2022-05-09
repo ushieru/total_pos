@@ -1,4 +1,4 @@
-# Welcome to Total Pos docs contributing guide
+# Bienvenido a la guía de contribución de Total Pos
 
 Lea nuestro [Código de conducta](./CODE_OF_CONDUCT.md) para mantener nuestra comunidad accesible y respetable.
 
